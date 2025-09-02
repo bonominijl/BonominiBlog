@@ -1,0 +1,14 @@
+This is a placeholder for 3D models.
+Replace this file with actual .glb or .usdz files.
+
+For testing, you can:
+1. Download a free 3D model from sites like:
+   - https://sketchfab.com/3d-models
+   - https://poly.pizza/
+   - https://www.cgtrader.com/free-3d-models
+
+2. Convert to GLB format if needed using:
+   - Blender (free)
+   - Online converters
+
+3. Place the .glb file in this directory and update the models.astro page

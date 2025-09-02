@@ -1,0 +1,39 @@
+---
+import PhotoSwipeLightbox from 'photoswipe/lightbox';
+import 'photoswipe/style.css';
+
+// Replace with your images (include natural widths/heights for best UX)
+const images = [
+  { src: '/images/placeholder.svg', w: 400, h: 300, thumb: '/images/placeholder.svg', alt: 'Placeholder Image 1' },
+  { src: '/images/placeholder.svg', w: 400, h: 300, thumb: '/images/placeholder.svg', alt: 'Placeholder Image 2' },
+  { src: '/images/placeholder.svg', w: 400, h: 300, thumb: '/images/placeholder.svg', alt: 'Placeholder Image 3' },
+];
+---
+
+<section id="gallery" class="grid">
+  {images.map((img) => (
+    <a href={img.src} data-pswp-width={img.w} data-pswp-height={img.h}>
+      <img src={img.thumb ?? img.src} alt={img.alt} loading="lazy" />
+    </a>
+  ))}
+</section>
+
+<script is:raw>
+  document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: '#gallery',
+      children: 'a',
+      pswpModule: () => import('photoswipe')
+    });
+    lightbox.init();
+  });
+</script>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  img { width: 100%; height: auto; display: block; border-radius: 12px; }
+</style>

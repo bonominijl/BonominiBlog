@@ -1,0 +1,97 @@
+---
+import Layout from '../layouts/Layout.astro';
+const title = '3D Models';
+// const model = '/models/teapot.glb'; // put your file in public/models
+---
+
+<Layout>
+  <main class="container">
+    <h1 class="page-title">{title}</h1>
+    <div class="model-container">
+      <div class="placeholder-message">
+        <h2>3D Model Viewer Ready</h2>
+        <p>To add 3D models:</p>
+        <ol>
+          <li>Place your .glb or .usdz files in the <code>public/models/</code> directory</li>
+          <li>Update the model path in this page</li>
+          <li>The model-viewer will automatically display your 3D content</li>
+        </ol>
+        <p><strong>Features:</strong> Camera controls, auto-rotate, AR support</p>
+      </div>
+      <!-- Uncomment and update when you have a model file:
+      <model-viewer
+        src="/models/your-model.glb"
+        camera-controls
+        auto-rotate
+        poster="/models/your-model-poster.jpg"
+        ar
+        alt="Your 3D Model">
+      </model-viewer>
+      -->
+    </div>
+  </main>
+</Layout>
+
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #111827;
+  }
+  
+  .model-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+  }
+  
+  model-viewer {
+    width: 100%;
+    max-width: 800px;
+    height: 600px;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+  }
+  
+  .placeholder-message {
+    text-align: center;
+    padding: 2rem;
+    background: #f9fafb;
+    border-radius: 12px;
+    border: 2px dashed #d1d5db;
+  }
+  
+  .placeholder-message h2 {
+    color: #111827;
+    margin-bottom: 1rem;
+  }
+  
+  .placeholder-message p {
+    color: #4b5563;
+    margin-bottom: 1rem;
+  }
+  
+  .placeholder-message ol {
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto 1rem;
+    color: #4b5563;
+  }
+  
+  .placeholder-message code {
+    background: #e5e7eb;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: monospace;
+  }
+</style>

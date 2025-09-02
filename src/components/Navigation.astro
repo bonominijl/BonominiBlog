@@ -1,0 +1,71 @@
+---
+// Navigation component for the site
+---
+
+<nav class="navigation">
+  <div class="nav-container">
+    <a href="/BonominiBlog/" class="nav-logo">BonominiBlog</a>
+    <div class="nav-links">
+      <a href="/BonominiBlog/" class="nav-link">Home</a>
+      <a href="/BonominiBlog/gallery/" class="nav-link">Gallery</a>
+      <a href="/BonominiBlog/models/" class="nav-link">3D Models</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .navigation {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #111827;
+    text-decoration: none;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .nav-link {
+    color: #4b5563;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .nav-link:hover {
+    color: #111827;
+  }
+  
+  @media (max-width: 768px) {
+    .nav-container {
+      padding: 1rem;
+    }
+    
+    .nav-links {
+      gap: 1rem;
+    }
+    
+    .nav-link {
+      font-size: 0.9rem;
+    }
+  }
+</style>
