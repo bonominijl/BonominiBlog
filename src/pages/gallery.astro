@@ -5,23 +5,17 @@ const title = 'Gallery';
 ---
 
 <Layout>
-  <main class="container">
-    <h1 class="page-title">{title}</h1>
-    <Gallery />
+  <main class="min-h-screen bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          {title}
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Browse our collection of images with PhotoSwipe lightbox for an immersive viewing experience
+        </p>
+      </div>
+      <Gallery />
+    </div>
   </main>
 </Layout>
-
-<style>
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-  
-  .page-title {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    color: #111827;
-  }
-</style>

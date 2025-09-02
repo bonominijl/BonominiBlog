@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# theme folder (not needed in repo)
+trendspotter_2025_RC/
