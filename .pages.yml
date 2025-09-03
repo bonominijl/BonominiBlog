@@ -1,51 +1,58 @@
-site:
-  name: BonominiBlog
+backend:
+  name: github
+  repo: bonominijl/BonominiBlog
   branch: main
+
+media_folder: public/uploads
+public_folder: /BonominiBlog/uploads
 
 collections:
   - name: posts
     label: Posts
     folder: src/content/posts
-    extension: mdx
     create: true
-    slug: "{slug}"
+    extension: mdx
+    format: frontmatter
+    slug: "{{slug}}"
     fields:
-      - { name: title, label: Title, type: string, required: true }
-      - { name: description, label: Description, type: text }
-      - { name: date, label: Date, type: datetime, required: true }
-      - { name: author, label: Author, type: string }
-      - { name: tags, label: Tags, type: list, of: string }
-      - { name: coverImage, label: Cover Image URL, type: string }
-      - { name: draft, label: Draft, type: boolean }
-      - { name: body, label: Body, type: markdown }
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text, required: false }
+      - { label: Date, name: date, widget: datetime }
+      - { label: Author, name: author, widget: string, required: false }
+      - { label: Tags, name: tags, widget: list, required: false }
+      - { label: Cover Image URL, name: coverImage, widget: string, required: false }
+      - { label: Draft, name: draft, widget: boolean, required: false }
+      - { label: Body, name: body, widget: markdown }
 
   - name: gallery
     label: Gallery
     folder: src/content/gallery
-    extension: json
     create: true
-    slug: "{slug}"
+    extension: json
+    format: json
+    slug: "{{slug}}"
     fields:
-      - { name: title, label: Title, type: string, required: true }
-      - { name: imageUrl, label: Image URL, type: string, required: true }
-      - { name: thumbUrl, label: Thumbnail URL, type: string }
-      - { name: width, label: Width, type: number }
-      - { name: height, label: Height, type: number }
-      - { name: alt, label: Alt text, type: string }
-      - { name: tags, label: Tags, type: list, of: string }
+      - { label: Title, name: title, widget: string }
+      - { label: Image URL, name: imageUrl, widget: string }
+      - { label: Thumbnail URL, name: thumbUrl, widget: string, required: false }
+      - { label: Width, name: width, widget: number, required: false }
+      - { label: Height, name: height, widget: number, required: false }
+      - { label: Alt Text, name: alt, widget: string, required: false }
+      - { label: Tags, name: tags, widget: list, required: false }
 
   - name: models
     label: 3D Models
     folder: src/content/models
-    extension: json
     create: true
-    slug: "{slug}"
+    extension: json
+    format: json
+    slug: "{{slug}}"
     fields:
-      - { name: title, label: Title, type: string, required: true }
-      - { name: modelUrl, label: Model URL (.glb/.usdz), type: string, required: true }
-      - { name: posterUrl, label: Poster URL, type: string }
-      - { name: description, label: Description, type: text }
-      - { name: ar, label: AR Enabled, type: boolean }
-      - { name: autoRotate, label: Auto Rotate, type: boolean }
-      - { name: cameraControls, label: Camera Controls, type: boolean }
-      - { name: tags, label: Tags, type: list, of: string }
+      - { label: Title, name: title, widget: string }
+      - { label: Model URL (.glb/.usdz), name: modelUrl, widget: string }
+      - { label: Poster URL, name: posterUrl, widget: string, required: false }
+      - { label: Description, name: description, widget: text, required: false }
+      - { label: AR Enabled, name: ar, widget: boolean, required: false }
+      - { label: Auto Rotate, name: autoRotate, widget: boolean, required: false }
+      - { label: Camera Controls, name: cameraControls, widget: boolean, required: false }
+      - { label: Tags, name: tags, widget: list, required: false }
