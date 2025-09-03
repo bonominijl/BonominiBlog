@@ -1,13 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 
-// Replace with your images (include natural widths/heights for best UX)
-const images = [
-  { src: '/images/placeholder.svg', w: 400, h: 300, thumb: '/images/placeholder.svg', alt: 'Placeholder Image 1' },
-  { src: '/images/placeholder.svg', w: 400, h: 300, thumb: '/images/placeholder.svg', alt: 'Placeholder Image 2' },
-  { src: '/images/placeholder.svg', w: 400, h: 300, thumb: '/images/placeholder.svg', alt: 'Placeholder Image 3' },
-];
+const entries = await getCollection('gallery');
+const images = entries.map((e) => ({
+  src: e.data.imageUrl,
+  w: e.data.width ?? 1600,
+  h: e.data.height ?? 900,
+  thumb: e.data.thumbUrl ?? e.data.imageUrl,
+  alt: e.data.alt || e.data.title,
+  title: e.data.title
+}));
 ---
 
 <section id="gallery" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -19,13 +23,13 @@ const images = [
       class="group block overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
     >
       <img 
-        src={img.thumb ?? img.src} 
+        src={img.thumb} 
         alt={img.alt} 
         loading="lazy" 
         class="w-full h-48 object-cover group-hover:brightness-110 transition-all duration-300"
       />
       <div class="p-4 bg-white">
-        <p class="text-sm text-gray-600 text-center">{img.alt}</p>
+        <p class="text-sm text-gray-600 text-center">{img.title}</p>
       </div>
     </a>
   ))}

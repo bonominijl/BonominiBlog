@@ -1,0 +1,9 @@
+{
+  "title": "Dusk over the City",
+  "imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=2048&auto=format&fit=crop&q=70",
+  "thumbUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=480&auto=format&fit=crop&q=50",
+  "width": 2048,
+  "height": 1365,
+  "alt": "City skyline at dusk",
+  "tags": ["city", "dusk", "skyline"]
+}

@@ -1,6 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 const title = 'BonominiBlog - Welcome';
+
+const galleryItems = (await getCollection('gallery')).slice(0, 3);
+const posts = (await getCollection('posts')).sort((a,b) => +new Date(b.data.date) - +new Date(a.data.date)).slice(0, 3);
+const models = (await getCollection('models')).slice(0, 2);
 ---
 
 <Layout>
@@ -39,51 +44,23 @@ const title = 'BonominiBlog - Welcome';
 				</div>
 				
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					<!-- Gallery Preview Cards -->
-					<div class="group cursor-pointer">
-						<div class="bg-base-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
-							<div class="aspect-[4/3] bg-gradient-to-br from-accent-100 to-accent-200 flex items-center justify-center">
-								<span class="text-6xl">📸</span>
+					{galleryItems.length ? (
+						galleryItems.map((g) => (
+							<div class="group cursor-pointer">
+								<div class="bg-base-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
+									<img src={g.data.thumbUrl ?? g.data.imageUrl} alt={g.data.alt || g.data.title} class="w-full aspect-[4/3] object-cover" loading="lazy" />
+									<div class="p-6">
+										<h3 class="text-xl font-semibold text-base-900 mb-2">{g.data.title}</h3>
+										<a href="/BonominiBlog/gallery/" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
+											View Collection →
+										</a>
+									</div>
+								</div>
 							</div>
-							<div class="p-6">
-								<h3 class="text-xl font-semibold text-base-900 mb-2">Urban Landscapes</h3>
-								<p class="text-base-600 mb-4">Cityscapes and architectural photography</p>
-								<a href="/BonominiBlog/gallery/" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
-									View Collection →
-								</a>
-							</div>
-						</div>
-					</div>
-					
-					<div class="group cursor-pointer">
-						<div class="bg-base-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
-							<div class="aspect-[4/3] bg-gradient-to-br from-accent-200 to-accent-300 flex items-center justify-center">
-								<span class="text-6xl">🌅</span>
-							</div>
-							<div class="p-6">
-								<h3 class="text-xl font-semibold text-base-900 mb-2">Nature & Wildlife</h3>
-								<p class="text-base-600 mb-4">Capturing the beauty of the natural world</p>
-								<a href="/BonominiBlog/gallery/" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
-									View Collection →
-								</a>
-							</div>
-						</div>
-					</div>
-					
-					<div class="group cursor-pointer">
-						<div class="bg-base-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
-							<div class="aspect-[4/3] bg-gradient-to-br from-accent-300 to-accent-400 flex items-center justify-center">
-								<span class="text-6xl">🎨</span>
-							</div>
-							<div class="p-6">
-								<h3 class="text-xl font-semibold text-base-900 mb-2">Creative Portraits</h3>
-								<p class="text-base-600 mb-4">Artistic and conceptual photography</p>
-								<a href="/BonominiBlog/gallery/" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
-									View Collection →
-								</a>
-							</div>
-						</div>
-					</div>
+						))
+					) : (
+						<div class="text-base-600">No gallery items yet. Add some in src/content/gallery.</div>
+					)}
 				</div>
 			</div>
 		</section>
@@ -101,66 +78,29 @@ const title = 'BonominiBlog - Welcome';
 				</div>
 				
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					<!-- Blog Post Cards -->
-					<article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300">
-						<div class="aspect-[16/9] bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center">
-							<span class="text-4xl">📝</span>
-						</div>
-						<div class="p-6">
-							<div class="flex items-center gap-2 mb-3">
-								<span class="text-sm text-base-500">Photography</span>
-								<span class="text-sm text-base-400">•</span>
-								<span class="text-sm text-base-500">5 min read</span>
-							</div>
-							<h3 class="text-xl font-semibold text-base-900 mb-3">Mastering Light in Photography</h3>
-							<p class="text-base-600 mb-4 line-clamp-3">
-								Learn the fundamentals of lighting and how it can transform your photography from good to extraordinary.
-							</p>
-							<a href="#" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
-								Read More →
-							</a>
-						</div>
-					</article>
-					
-					<article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300">
-						<div class="aspect-[16/9] bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center">
-							<span class="text-4xl">🎯</span>
-						</div>
-						<div class="p-6">
-							<div class="flex items-center gap-2 mb-3">
-								<span class="text-sm text-base-500">3D Modeling</span>
-								<span class="text-sm text-base-400">•</span>
-								<span class="text-sm text-base-500">8 min read</span>
-							</div>
-							<h3 class="text-xl font-semibold text-base-900 mb-3">Getting Started with 3D Modeling</h3>
-							<p class="text-base-600 mb-4 line-clamp-3">
-								A beginner's guide to creating and displaying 3D models on the web using modern technologies.
-							</p>
-							<a href="#" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
-								Read More →
-							</a>
-						</div>
-					</article>
-					
-					<article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300">
-						<div class="aspect-[16/9] bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center">
-							<span class="text-4xl">🚀</span>
-						</div>
-						<div class="p-6">
-							<div class="flex items-center gap-2 mb-3">
-								<span class="text-sm text-base-500">Web Development</span>
-								<span class="text-sm text-base-400">•</span>
-								<span class="text-sm text-base-500">6 min read</span>
-							</div>
-							<h3 class="text-xl font-semibold text-base-900 mb-3">Building Modern Web Experiences</h3>
-							<p class="text-base-600 mb-4 line-clamp-3">
-								How we built this site using Astro, Tailwind CSS, and the Trendspotter design system.
-							</p>
-							<a href="#" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
-								Read More →
-							</a>
-						</div>
-					</article>
+					{posts.length ? (
+						posts.map((p) => (
+							<article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300">
+								{p.data.coverImage ? (
+									<img src={p.data.coverImage} alt={p.data.title} class="w-full aspect-[16/9] object-cover" loading="lazy" />
+								) : (
+									<div class="aspect-[16/9] bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center">
+										<span class="text-4xl">📝</span>
+									</div>
+								)}
+								<div class="p-6">
+									<p class="text-sm text-base-500">{new Date(p.data.date).toLocaleDateString()}</p>
+									<h3 class="text-xl font-semibold text-base-900 mb-3">{p.data.title}</h3>
+									{p.data.description && (
+										<p class="text-base-600 mb-4 line-clamp-3">{p.data.description}</p>
+									)}
+									<a href="#" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">Read More →</a>
+								</div>
+							</article>
+						))
+					) : (
+						<div class="text-base-600">No posts yet. Add some in src/content/posts.</div>
+					)}
 				</div>
 			</div>
 		</section>
@@ -178,41 +118,27 @@ const title = 'BonominiBlog - Welcome';
 				</div>
 				
 				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-					<!-- 3D Model Project 1 -->
-					<div class="bg-base-100 rounded-2xl p-8 shadow-lg">
-						<div class="aspect-[4/3] bg-gradient-to-br from-accent-100 to-accent-200 rounded-xl flex items-center justify-center mb-6">
-							<span class="text-8xl">🏗️</span>
-						</div>
-						<h3 class="text-2xl font-semibold text-base-900 mb-3">Architectural Visualization</h3>
-						<p class="text-base-600 mb-4 leading-relaxed">
-							Explore detailed 3D models of architectural designs with interactive camera controls. 
-							Perfect for presentations and client reviews.
-						</p>
-						<div class="flex items-center gap-4">
-							<a href="/BonominiBlog/models/" class="bg-accent-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-accent-600 transition-colors">
-								View Model
-							</a>
-							<span class="text-sm text-base-500">Camera Controls • AR Ready</span>
-						</div>
-					</div>
-					
-					<!-- 3D Model Project 2 -->
-					<div class="bg-base-100 rounded-2xl p-8 shadow-lg">
-						<div class="aspect-[4/3] bg-gradient-to-br from-accent-200 to-accent-300 rounded-xl flex items-center justify-center mb-6">
-							<span class="text-8xl">🎨</span>
-						</div>
-						<h3 class="text-2xl font-semibold text-base-900 mb-3">Product Showcase</h3>
-						<p class="text-base-600 mb-4 leading-relaxed">
-							Interactive 3D product models with realistic materials and lighting. 
-							Rotate, zoom, and explore every detail.
-						</p>
-						<div class="flex items-center gap-4">
-							<a href="/BonominiBlog/models/" class="bg-accent-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-accent-600 transition-colors">
-								View Model
-							</a>
-							<span class="text-sm text-base-500">Auto-rotate • Touch Gestures</span>
-						</div>
-					</div>
+					{models.length ? (
+						models.map((m) => (
+							<div class="bg-base-100 rounded-2xl p-8 shadow-lg">
+								{m.data.posterUrl ? (
+									<img src={m.data.posterUrl} alt={m.data.title} class="w-full aspect-[4/3] object-cover rounded-xl mb-6" loading="lazy" />
+								) : (
+									<div class="aspect-[4/3] bg-gradient-to-br from-accent-100 to-accent-200 rounded-xl flex items-center justify-center mb-6">
+										<span class="text-8xl">🎯</span>
+									</div>
+								)}
+								<h3 class="text-2xl font-semibold text-base-900 mb-3">{m.data.title}</h3>
+								{m.data.description && (<p class="text-base-600 mb-4 leading-relaxed">{m.data.description}</p>)}
+								<div class="flex items-center gap-4">
+									<a href="/BonominiBlog/models/" class="bg-accent-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-accent-600 transition-colors">View Model</a>
+									<span class="text-sm text-base-500">{m.data.cameraControls ? 'Camera Controls' : ''}{m.data.ar ? ' • AR Ready' : ''}</span>
+								</div>
+							</div>
+						))
+					) : (
+						<div class="text-base-600">No models yet. Add some in src/content/models.</div>
+					)}
 				</div>
 			</div>
 		</section>

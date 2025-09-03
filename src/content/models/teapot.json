@@ -1,0 +1,10 @@
+{
+  "title": "Classic Teapot",
+  "modelUrl": "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+  "posterUrl": "https://modelviewer.dev/shared-assets/models/Astronaut.webp",
+  "description": "Interactive 3D model example using model-viewer.",
+  "ar": true,
+  "autoRotate": true,
+  "cameraControls": true,
+  "tags": ["example", "model-viewer"]
+}

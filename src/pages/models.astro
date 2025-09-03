@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 const title = '3D Models';
-// const model = '/models/teapot.glb'; // put your file in public/models
+const models = await getCollection('models');
 ---
 
 <Layout>
@@ -16,46 +17,31 @@ const title = '3D Models';
         </p>
       </div>
       
-      <div class="flex justify-center">
-        <div class="bg-white rounded-2xl shadow-lg p-8 max-w-4xl w-full">
-          <div class="text-center">
-            <div class="text-6xl mb-6">🎯</div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">3D Model Viewer Ready</h2>
-            <p class="text-gray-600 mb-6">
-              To add 3D models to your site:
-            </p>
-            <ol class="text-left max-w-2xl mx-auto text-gray-600 space-y-2 mb-6">
-              <li class="flex items-start">
-                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded mr-3 mt-0.5">1</span>
-                Place your .glb or .usdz files in the <code class="bg-gray-100 px-2 py-1 rounded text-sm">public/models/</code> directory
-              </li>
-              <li class="flex items-start">
-                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded mr-3 mt-0.5">2</span>
-                Update the model path in this page
-              </li>
-              <li class="flex items-start">
-                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded mr-3 mt-0.5">3</span>
-                The model-viewer will automatically display your 3D content
-              </li>
-            </ol>
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <p class="text-blue-800 font-medium">
-                <strong>Features:</strong> Camera controls, auto-rotate, AR support, touch gestures
-              </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        {models.map((m) => (
+          <div class="bg-white rounded-2xl shadow-lg p-6">
+            <div class="text-center mb-4">
+              <h2 class="text-2xl font-semibold text-gray-900">{m.data.title}</h2>
+              {m.data.description && (<p class="text-gray-600 mt-2">{m.data.description}</p>)}
             </div>
+            <model-viewer
+              src={m.data.modelUrl}
+              camera-controls={m.data.cameraControls}
+              auto-rotate={m.data.autoRotate}
+              ar={m.data.ar}
+              poster={m.data.posterUrl}
+              alt={m.data.title}
+              style="width: 100%; height: 420px; background: #f8fafc; border-radius: 12px;"
+            />
+            {m.data.tags?.length ? (
+              <div class="mt-4 flex flex-wrap gap-2">
+                {m.data.tags.map((t) => (
+                  <span class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-600">{t}</span>
+                ))}
+              </div>
+            ) : null}
           </div>
-          
-          <!-- Uncomment and update when you have a model file:
-          <model-viewer
-            src="/models/your-model.glb"
-            camera-controls
-            auto-rotate
-            poster="/models/your-model-poster.jpg"
-            ar
-            alt="Your 3D Model">
-          </model-viewer>
-          -->
-        </div>
+        ))}
       </div>
     </div>
   </main>

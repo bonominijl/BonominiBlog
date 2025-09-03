@@ -1,0 +1,57 @@
+---
+const repo = 'bonominijl/BonominiBlog';
+const branch = 'main';
+const baseEditUrl = `https://github.com/${repo}/edit/${branch}`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin</title>
+  </head>
+  <body>
+    <main style="max-width: 960px; margin: 2rem auto; font-family: system-ui, sans-serif; padding: 1rem;">
+      <h1 style="font-size: 2rem; margin-bottom: 1.5rem;">Admin</h1>
+      <p style="margin-bottom: 1rem;">Quick links to edit content via GitHub (compatible with PageCMS Git-based editing).</p>
+
+      <section style="margin: 2rem 0;">
+        <h2 style="font-size: 1.25rem;">Collections</h2>
+        <ul style="margin-top: .75rem; line-height: 1.8;">
+          <li>
+            <a href={`${baseEditUrl}/src/content/posts/hello-world.mdx`} target="_blank">Edit Posts</a> ·
+            <a href={`https://github.com/${repo}/tree/${branch}/src/content/posts`} target="_blank">Browse</a>
+          </li>
+          <li>
+            <a href={`${baseEditUrl}/src/content/gallery/sample-1.json`} target="_blank">Edit Gallery</a> ·
+            <a href={`https://github.com/${repo}/tree/${branch}/src/content/gallery`} target="_blank">Browse</a>
+          </li>
+          <li>
+            <a href={`${baseEditUrl}/src/content/models/teapot.json`} target="_blank">Edit Models</a> ·
+            <a href={`https://github.com/${repo}/tree/${branch}/src/content/models`} target="_blank">Browse</a>
+          </li>
+        </ul>
+      </section>
+
+      <section style="margin: 2rem 0;">
+        <h2 style="font-size: 1.25rem;">Add New</h2>
+        <ul style="margin-top: .75rem; line-height: 1.8;">
+          <li>
+            Posts: create a new <code>.mdx</code> in <code>src/content/posts</code> with frontmatter fields.
+          </li>
+          <li>
+            Gallery: add a new <code>.json</code> in <code>src/content/gallery</code> using keys: <code>title, imageUrl, thumbUrl, width, height, alt, tags</code>.
+          </li>
+          <li>
+            Models: add a new <code>.json</code> in <code>src/content/models</code> using keys: <code>title, modelUrl, posterUrl, description, ar, autoRotate, cameraControls, tags</code>.
+          </li>
+        </ul>
+      </section>
+
+      <section style="margin: 2rem 0;">
+        <h2 style="font-size: 1.25rem;">Media Hosting</h2>
+        <p>Upload large images and 3D files to your chosen object storage/CDN and paste the absolute URLs into the JSON/MDX files. Ensure CORS allows <code>https://bonominijl.github.io</code>.</p>
+      </section>
+    </main>
+  </body>
+</html>
