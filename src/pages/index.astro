@@ -5,101 +5,234 @@ const title = 'BonominiBlog - Welcome';
 
 <Layout>
 	<main class="min-h-screen">
-		<!-- Hero Section -->
-		<section class="bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white py-20">
+		<!-- Hero Section with Large Title -->
+		<section class="bg-base-50 py-24 lg:py-32">
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-				<h1 class="text-4xl md:text-6xl font-bold mb-6">
-					Welcome to BonominiBlog
+				<h1 class="text-6xl lg:text-8xl font-bold text-base-900 mb-8 leading-tight">
+					BonominiBlog
 				</h1>
-				<p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">
-					Explore our photo gallery and interactive 3D models. Built with Astro and the beautiful Trendspotter theme.
+				<p class="text-xl lg:text-2xl text-base-600 mb-12 max-w-4xl mx-auto leading-relaxed">
+					Explore our curated collection of photography, insights, and interactive 3D experiences. 
+					Built with modern web technologies and the beautiful Trendspotter design system.
 				</p>
 				<div class="flex flex-col sm:flex-row gap-4 justify-center">
-					<a href="/BonominiBlog/gallery/" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-200 transform hover:scale-105">
-						View Gallery
+					<a href="/BonominiBlog/gallery/" class="bg-accent-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-accent-600 transition-all duration-200 transform hover:scale-105 shadow-lg">
+						Explore Gallery
 					</a>
-					<a href="/BonominiBlog/models/" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all duration-200 transform hover:scale-105">
+					<a href="/BonominiBlog/models/" class="border-2 border-base-300 text-base-700 px-8 py-4 rounded-lg font-semibold hover:bg-base-100 hover:border-base-400 transition-all duration-200">
 						3D Models
 					</a>
 				</div>
 			</div>
 		</section>
 		
-		<!-- Features Section -->
-		<section class="py-20 bg-gray-50">
+		<!-- Gallery Section -->
+		<section class="py-20 bg-white">
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div class="text-center mb-16">
-					<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-						Discover Our Features
+					<h2 class="text-4xl lg:text-5xl font-bold text-base-900 mb-6">
+						Featured Photography
 					</h2>
-					<p class="text-xl text-gray-600 max-w-2xl mx-auto">
-						Experience the power of modern web technologies with our interactive features
+					<p class="text-xl text-base-600 max-w-3xl mx-auto">
+						Discover our carefully curated collection of images showcasing moments, places, and perspectives
 					</p>
 				</div>
 				
-				<div class="grid md:grid-cols-2 gap-8">
-					<!-- Gallery Feature -->
-					<div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
-						<div class="text-4xl mb-4">📸</div>
-						<h3 class="text-2xl font-bold text-gray-900 mb-4">Photo Gallery</h3>
-						<p class="text-gray-600 mb-6 leading-relaxed">
-							Browse our collection of images with PhotoSwipe lightbox for an immersive viewing experience. 
-							Touch gestures, keyboard navigation, and responsive design included.
-						</p>
-						<a href="/BonominiBlog/gallery/" class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
-							Explore Gallery 
-							<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-							</svg>
-						</a>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<!-- Gallery Preview Cards -->
+					<div class="group cursor-pointer">
+						<div class="bg-base-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
+							<div class="aspect-[4/3] bg-gradient-to-br from-accent-100 to-accent-200 flex items-center justify-center">
+								<span class="text-6xl">📸</span>
+							</div>
+							<div class="p-6">
+								<h3 class="text-xl font-semibold text-base-900 mb-2">Urban Landscapes</h3>
+								<p class="text-base-600 mb-4">Cityscapes and architectural photography</p>
+								<a href="/BonominiBlog/gallery/" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
+									View Collection →
+								</a>
+							</div>
+						</div>
 					</div>
 					
-					<!-- 3D Models Feature -->
-					<div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
-						<div class="text-4xl mb-4">🎯</div>
-						<h3 class="text-2xl font-bold text-gray-900 mb-4">3D Models</h3>
-						<p class="text-gray-600 mb-6 leading-relaxed">
-							Interactive 3D models with camera controls, auto-rotate, and AR support for compatible devices. 
-							Powered by Google's model-viewer technology.
-						</p>
-						<a href="/BonominiBlog/models/" class="inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
-							View Models 
-							<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-							</svg>
-						</a>
+					<div class="group cursor-pointer">
+						<div class="bg-base-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
+							<div class="aspect-[4/3] bg-gradient-to-br from-accent-200 to-accent-300 flex items-center justify-center">
+								<span class="text-6xl">🌅</span>
+							</div>
+							<div class="p-6">
+								<h3 class="text-xl font-semibold text-base-900 mb-2">Nature & Wildlife</h3>
+								<p class="text-base-600 mb-4">Capturing the beauty of the natural world</p>
+								<a href="/BonominiBlog/gallery/" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
+									View Collection →
+								</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="group cursor-pointer">
+						<div class="bg-base-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2">
+							<div class="aspect-[4/3] bg-gradient-to-br from-accent-300 to-accent-400 flex items-center justify-center">
+								<span class="text-6xl">🎨</span>
+							</div>
+							<div class="p-6">
+								<h3 class="text-xl font-semibold text-base-900 mb-2">Creative Portraits</h3>
+								<p class="text-base-600 mb-4">Artistic and conceptual photography</p>
+								<a href="/BonominiBlog/gallery/" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
+									View Collection →
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 		
-		<!-- Tech Stack Section -->
+		<!-- Blog Posts Section -->
+		<section class="py-20 bg-base-50">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="text-center mb-16">
+					<h2 class="text-4xl lg:text-5xl font-bold text-base-900 mb-6">
+						Latest Insights
+					</h2>
+					<p class="text-xl text-base-600 max-w-3xl mx-auto">
+						Thoughts, tutorials, and behind-the-scenes stories from our creative journey
+					</p>
+				</div>
+				
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<!-- Blog Post Cards -->
+					<article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300">
+						<div class="aspect-[16/9] bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center">
+							<span class="text-4xl">📝</span>
+						</div>
+						<div class="p-6">
+							<div class="flex items-center gap-2 mb-3">
+								<span class="text-sm text-base-500">Photography</span>
+								<span class="text-sm text-base-400">•</span>
+								<span class="text-sm text-base-500">5 min read</span>
+							</div>
+							<h3 class="text-xl font-semibold text-base-900 mb-3">Mastering Light in Photography</h3>
+							<p class="text-base-600 mb-4 line-clamp-3">
+								Learn the fundamentals of lighting and how it can transform your photography from good to extraordinary.
+							</p>
+							<a href="#" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
+								Read More →
+							</a>
+						</div>
+					</article>
+					
+					<article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300">
+						<div class="aspect-[16/9] bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center">
+							<span class="text-4xl">🎯</span>
+						</div>
+						<div class="p-6">
+							<div class="flex items-center gap-2 mb-3">
+								<span class="text-sm text-base-500">3D Modeling</span>
+								<span class="text-sm text-base-400">•</span>
+								<span class="text-sm text-base-500">8 min read</span>
+							</div>
+							<h3 class="text-xl font-semibold text-base-900 mb-3">Getting Started with 3D Modeling</h3>
+							<p class="text-base-600 mb-4 line-clamp-3">
+								A beginner's guide to creating and displaying 3D models on the web using modern technologies.
+							</p>
+							<a href="#" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
+								Read More →
+							</a>
+						</div>
+					</article>
+					
+					<article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-hover transition-all duration-300">
+						<div class="aspect-[16/9] bg-gradient-to-br from-base-200 to-base-300 flex items-center justify-center">
+							<span class="text-4xl">🚀</span>
+						</div>
+						<div class="p-6">
+							<div class="flex items-center gap-2 mb-3">
+								<span class="text-sm text-base-500">Web Development</span>
+								<span class="text-sm text-base-400">•</span>
+								<span class="text-sm text-base-500">6 min read</span>
+							</div>
+							<h3 class="text-xl font-semibold text-base-900 mb-3">Building Modern Web Experiences</h3>
+							<p class="text-base-600 mb-4 line-clamp-3">
+								How we built this site using Astro, Tailwind CSS, and the Trendspotter design system.
+							</p>
+							<a href="#" class="text-accent-600 font-medium hover:text-accent-700 transition-colors">
+								Read More →
+							</a>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+		
+		<!-- 3D Models Section -->
 		<section class="py-20 bg-white">
-			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-				<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-16">
-					Built with Modern Technologies
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="text-center mb-16">
+					<h2 class="text-4xl lg:text-5xl font-bold text-base-900 mb-6">
+						3D Model Projects
+					</h2>
+					<p class="text-xl text-base-600 max-w-3xl mx-auto">
+						Interactive 3D experiences with camera controls, AR support, and immersive viewing
+					</p>
+				</div>
+				
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+					<!-- 3D Model Project 1 -->
+					<div class="bg-base-100 rounded-2xl p-8 shadow-lg">
+						<div class="aspect-[4/3] bg-gradient-to-br from-accent-100 to-accent-200 rounded-xl flex items-center justify-center mb-6">
+							<span class="text-8xl">🏗️</span>
+						</div>
+						<h3 class="text-2xl font-semibold text-base-900 mb-3">Architectural Visualization</h3>
+						<p class="text-base-600 mb-4 leading-relaxed">
+							Explore detailed 3D models of architectural designs with interactive camera controls. 
+							Perfect for presentations and client reviews.
+						</p>
+						<div class="flex items-center gap-4">
+							<a href="/BonominiBlog/models/" class="bg-accent-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-accent-600 transition-colors">
+								View Model
+							</a>
+							<span class="text-sm text-base-500">Camera Controls • AR Ready</span>
+						</div>
+					</div>
+					
+					<!-- 3D Model Project 2 -->
+					<div class="bg-base-100 rounded-2xl p-8 shadow-lg">
+						<div class="aspect-[4/3] bg-gradient-to-br from-accent-200 to-accent-300 rounded-xl flex items-center justify-center mb-6">
+							<span class="text-8xl">🎨</span>
+						</div>
+						<h3 class="text-2xl font-semibold text-base-900 mb-3">Product Showcase</h3>
+						<p class="text-base-600 mb-4 leading-relaxed">
+							Interactive 3D product models with realistic materials and lighting. 
+							Rotate, zoom, and explore every detail.
+						</p>
+						<div class="flex items-center gap-4">
+							<a href="/BonominiBlog/models/" class="bg-accent-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-accent-600 transition-colors">
+								View Model
+							</a>
+							<span class="text-sm text-base-500">Auto-rotate • Touch Gestures</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<!-- CTA Section -->
+		<section class="py-20 bg-accent-500">
+			<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+				<h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
+					Ready to Explore?
 				</h2>
-				<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-					<div class="text-center">
-						<div class="text-4xl mb-4">⚡</div>
-						<h3 class="font-semibold text-gray-900">Astro</h3>
-						<p class="text-sm text-gray-600">Static Site Generator</p>
-					</div>
-					<div class="text-center">
-						<div class="text-4xl mb-4">🎨</div>
-						<h3 class="font-semibold text-gray-900">Tailwind CSS</h3>
-						<p class="text-sm text-gray-600">Utility-First CSS</p>
-					</div>
-					<div class="text-center">
-						<div class="text-4xl mb-4">📱</div>
-						<h3 class="font-semibold text-gray-900">PhotoSwipe</h3>
-						<p class="text-sm text-gray-600">Gallery Lightbox</p>
-					</div>
-					<div class="text-center">
-						<div class="text-4xl mb-4">🎯</div>
-						<h3 class="font-semibold text-gray-900">Model-Viewer</h3>
-						<p class="text-sm text-gray-600">3D Model Display</p>
-					</div>
+				<p class="text-xl text-accent-100 mb-8">
+					Dive into our gallery, read our latest insights, or experience our 3D models
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<a href="/BonominiBlog/gallery/" class="bg-white text-accent-600 px-8 py-4 rounded-lg font-semibold hover:bg-base-100 transition-all duration-200">
+						Browse Gallery
+					</a>
+					<a href="/BonominiBlog/models/" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-accent-600 transition-all duration-200">
+						View 3D Models
+					</a>
 				</div>
 			</div>
 		</section>
