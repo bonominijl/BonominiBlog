@@ -1,9 +1,8 @@
 {
-  "title": "Mountain Lake Reflection",
-  "imageUrl": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1800&auto=format&fit=crop&q=70",
+  "title": "Zion",
+  "imageUrl": "https://github.com/bonominijl/BonominiBlog/blob/main/src/content/gallery/Zion%20August%202025_01-2.jpg?raw=true",
   "width": 1800,
   "height": 1200,
   "alt": "Mountain landscape reflecting in a crystal clear lake",
-  "description": "Perfect mirror reflection of mountain peaks on the calm waters of an alpine lake at sunrise.",
-  "tags": ["nature", "lake", "mountains", "reflection"]
+  "tags": "nature"
 }
