@@ -21,7 +21,6 @@ content:
     path: src/content/posts
     format: md
     filename: "{year}-{month}-{day}-{fields.title}.md"
-    format: mdx
     fields:
       - name: title
         label: Title
