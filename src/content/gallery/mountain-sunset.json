@@ -1,9 +1,7 @@
 {
-  "title": "Mountain Sunset",
-  "imageUrl": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1800&auto=format&fit=crop&q=70",
+  "title": "Zion August 2025",
+  "imageUrl": "https://github.com/bonominijl/BonominiBlog/blob/main/src/content/gallery/Zion%20August%202025_01-2.jpg?raw=true",
   "width": 1800,
   "height": 1200,
-  "alt": "Beautiful sunset over mountains with pink and purple sky",
-  "description": "A breathtaking sunset captured over the mountain range with vibrant pink and purple hues.",
-  "tags": ["nature", "sunset", "mountains"]
+  "tags": "Nature, Zion"
 }
