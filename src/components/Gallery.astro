@@ -4,11 +4,20 @@ import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 
 const entries = await getCollection('gallery');
+
+const withBase = (p) => {
+  if (!p) return p;
+  if (/^https?:\/\//i.test(p)) return p; // absolute URL
+  if (p.startsWith('/')) return p;       // already absolute site path
+  const base = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '');
+  return `${base}/${p.replace(/^\/+/, '')}`;
+};
+
 const images = entries.map((e) => ({
-  src: e.data.imageUrl,
+  src: withBase(e.data.imageUrl),
   w: e.data.width ?? 1600,
   h: e.data.height ?? 900,
-  thumb: e.data.thumbUrl ?? e.data.imageUrl,
+  thumb: withBase(e.data.thumbUrl ?? e.data.imageUrl),
   alt: e.data.alt || e.data.title,
   title: e.data.title
 }));
