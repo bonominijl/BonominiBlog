@@ -1,0 +1,120 @@
+site:
+  name: BonominiBlog
+  branch: main
+
+media:
+  - name: images
+    label: Images
+    input: public/images
+    output: /BonominiBlog/images
+    extensions: [png, jpg, jpeg, webp, gif, svg]
+  - name: models
+    label: 3D Models
+    input: public/models
+    output: /BonominiBlog/models
+    extensions: [glb, usdz, png, jpg, jpeg, webp]
+
+content:
+  - name: posts
+    label: Posts
+    type: collection
+    path: src/content/posts
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: author
+        label: Author
+        type: string
+      - name: tags
+        label: Tags
+        type: list
+        items:
+          type: string
+      - name: coverImage
+        label: Cover Image
+        type: media
+        media: images
+      - name: draft
+        label: Draft
+        type: boolean
+      - name: body
+        label: Body
+        type: markdown
+
+  - name: gallery
+    label: Gallery
+    type: collection
+    path: src/content/gallery
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: imageUrl
+        label: Image
+        type: media
+        media: images
+        required: true
+      - name: thumbUrl
+        label: Thumbnail
+        type: media
+        media: images
+      - name: width
+        label: Width
+        type: number
+      - name: height
+        label: Height
+        type: number
+      - name: alt
+        label: Alt text
+        type: string
+      - name: tags
+        label: Tags
+        type: list
+        items:
+          type: string
+
+  - name: models
+    label: 3D Models
+    type: collection
+    path: src/content/models
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: modelUrl
+        label: Model file (.glb/.usdz)
+        type: media
+        media: models
+        required: true
+      - name: posterUrl
+        label: Poster image
+        type: media
+        media: images
+      - name: description
+        label: Description
+        type: text
+      - name: ar
+        label: AR Enabled
+        type: boolean
+      - name: autoRotate
+        label: Auto Rotate
+        type: boolean
+      - name: cameraControls
+        label: Camera Controls
+        type: boolean
+      - name: tags
+        label: Tags
+        type: list
+        items:
+          type: string
