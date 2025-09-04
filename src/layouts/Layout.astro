@@ -33,6 +33,17 @@ const {
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
+		
+		<!-- Theme initialization to prevent flash of unstyled content -->
+		<script is:inline>
+			// Immediately restore dark mode preference on page load
+			if (localStorage.getItem('theme') === 'dark' || 
+				(!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		</script>
 	</head>
 	<body class="bg-white dark:bg-base-900 flex flex-col min-h-screen text-base-900 dark:text-base-50 transition-colors duration-200">
 		<Navigation />
@@ -74,3 +85,8 @@ const {
 		</footer>
 	</body>
 </html>
+
+<script>
+  // Import theme script
+  import '../scripts/theme.js';
+</script>

@@ -172,13 +172,6 @@ const navItems = [
       });
     }
     
-    // Import theme script dynamically to avoid Astro SSR issues
-    import('../scripts/theme.js')
-      .then(module => {
-        console.log('Theme script loaded successfully');
-      })
-      .catch(err => {
-        console.error('Error loading theme script:', err);
-      });
+    // Theme script is loaded in Layout component for SSR compatibility
   });
 </script>

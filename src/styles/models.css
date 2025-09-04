@@ -1,0 +1,12 @@
+/* Custom styling for model-viewer in dark mode */
+
+.dark model-viewer {
+  background-color: #1e293b !important; /* dark:bg-base-800 equivalent */
+  --poster-color: #1e293b;
+  color-scheme: dark;
+}
+
+/* Remove rounded corners from model-viewer */
+model-viewer {
+  border-radius: 0 !important;
+}

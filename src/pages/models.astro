@@ -1,28 +1,30 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-const title = '3D Models';
+import '../styles/models.css';
+
+const title = "3D Models & Experiences";
 const models = await getCollection('models');
 ---
 
 <Layout>
-  <main class="min-h-screen bg-gray-50">
+  <main class="min-h-screen bg-base-50 dark:bg-base-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div class="text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-base-900 dark:text-white mb-4">
           {title}
         </h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        <p class="text-xl text-base-600 dark:text-base-300 max-w-2xl mx-auto">
           Interactive 3D models with camera controls, auto-rotate, and AR support
         </p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
         {models.map((m) => (
-          <div class="bg-white rounded-2xl shadow-lg p-6">
+          <div class="bg-white dark:bg-base-700 shadow-lg p-6">
             <div class="text-center mb-4">
-              <h2 class="text-2xl font-semibold text-gray-900">{m.data.title}</h2>
-              {m.data.description && (<p class="text-gray-600 mt-2">{m.data.description}</p>)}
+              <h2 class="text-2xl font-semibold text-base-900 dark:text-white">{m.data.title}</h2>
+              {m.data.description && (<p class="text-base-600 dark:text-base-300 mt-2">{m.data.description}</p>)}
             </div>
             <model-viewer
               src={m.data.modelUrl}
@@ -31,12 +33,12 @@ const models = await getCollection('models');
               ar={m.data.ar}
               poster={m.data.posterUrl}
               alt={m.data.title}
-              style="width: 100%; height: 420px; background: #f8fafc; border-radius: 12px;"
+              style="width: 100%; height: 420px; background: #f8fafc; border: none;"
             />
             {m.data.tags?.length ? (
               <div class="mt-4 flex flex-wrap gap-2">
                 {m.data.tags.map((t) => (
-                  <span class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-600">{t}</span>
+                  <span class="text-xs px-2 py-1 bg-base-100 dark:bg-base-600 text-base-600 dark:text-base-200">{t}</span>
                 ))}
               </div>
             ) : null}
