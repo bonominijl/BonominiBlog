@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
+import '../styles/gallery.css';
 
 const entries = await getCollection('gallery');
 
@@ -19,38 +20,296 @@ const images = entries.map((e) => ({
   h: e.data.height ?? 900,
   thumb: withBase(e.data.thumbUrl ?? e.data.imageUrl),
   alt: e.data.alt || e.data.title,
-  title: e.data.title
+  title: e.data.title,
+  tags: e.data.tags || [],
+  description: e.data.description || ''
 }));
 ---
 
-<section id="gallery" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-  {images.map((img) => (
-    <a 
-      href={img.src} 
-      data-pswp-width={img.w} 
-      data-pswp-height={img.h}
-      class="group block overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-    >
-      <img 
-        src={img.thumb} 
-        alt={img.alt} 
-        loading="lazy" 
-        class="w-full h-48 object-cover group-hover:brightness-110 transition-all duration-300"
-      />
-      <div class="p-4 bg-white">
-        <p class="text-sm text-gray-600 text-center">{img.title}</p>
-      </div>
-    </a>
-  ))}
+<section class="max-w-7xl mx-auto">
+  <!-- Gallery toolbar with tags/filters -->
+  <div class="flex flex-wrap items-center justify-between mb-8 gap-4">
+    <h2 class="text-2xl font-medium text-base-900 dark:text-white">Featured Images</h2>
+    <div class="flex flex-wrap gap-2">
+      <button id="all-images" class="gallery-tag bg-accent-500 text-white hover:bg-accent-600 dark:bg-accent-600 dark:hover:bg-accent-700 transition-colors duration-200">
+        All
+      </button>
+      {[...new Set(images.flatMap(img => img.tags))].map((tag) => (
+        <button class="image-tag gallery-tag bg-base-100 dark:bg-base-800 text-base-700 dark:text-base-300 hover:bg-accent-50 hover:text-accent-600 dark:hover:bg-base-700 dark:hover:text-accent-400 transition-colors duration-200" data-tag={tag}>
+          {tag}
+        </button>
+      ))}  
+    </div>
+  </div>
+
+  <!-- Image grid -->
+  <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8">
+    {images.map((img) => (
+      <a 
+        href={img.src} 
+        data-pswp-width={img.w} 
+        data-pswp-height={img.h}
+        data-tags={img.tags.join(',')}
+        data-description={img.description}
+        class="gallery-item group block overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 bg-white dark:bg-base-800"
+      >
+        <div class="aspect-[4/3] overflow-hidden">
+          <img 
+            src={img.thumb} 
+            alt={img.alt} 
+            loading="lazy" 
+            class="gallery-thumbnail w-full h-full object-cover transition-all duration-500"
+          />
+        </div>
+        <div class="p-4 bg-white dark:bg-base-800 border-t border-base-100 dark:border-base-700">
+          <p class="font-medium text-base-900 dark:text-white">{img.title}</p>
+          {img.tags.length > 0 && (
+            <div class="mt-2 flex gap-2 flex-wrap">
+              {img.tags.slice(0, 2).map(tag => (
+                <span class="text-xs px-2 py-1 bg-base-50 dark:bg-base-700 text-base-500 dark:text-base-400">{tag}</span>
+              ))}
+              {img.tags.length > 2 && <span class="text-xs px-2 py-1 bg-base-50 dark:bg-base-700 text-base-500 dark:text-base-400">+{img.tags.length - 2}</span>}
+            </div>
+          )}
+        </div>
+      </a>
+    ))}
+  </div>
 </section>
 
+<!-- Enhanced PhotoSwipe configuration -->
 <script is:raw>
   document.addEventListener('DOMContentLoaded', () => {
+    // Initialize PhotoSwipe Lightbox
     const lightbox = new PhotoSwipeLightbox({
       gallery: '#gallery',
       children: 'a',
-      pswpModule: () => import('photoswipe')
+      pswpModule: () => import('photoswipe'),
+      // TrendSpotter enhancements
+      paddingFn: () => ({ top: 30, bottom: 30, left: 70, right: 70 }),
+      arrowPrev: true,
+      arrowNext: true,
+      showHideAnimationType: 'fade',
+      initialZoomLevel: 'fit',
+      secondaryZoomLevel: 1.5,
+      maxZoomLevel: 4,
+      wheelToZoom: true,
+      closeOnVerticalDrag: true,
+      imageClickAction: 'zoom',
+      tapAction: 'toggle-controls',
+      bgOpacity: 0.85,
+      allowPanToNext: true,
     });
+
+    // Add custom UI elements when PhotoSwipe is opened
+    lightbox.on('uiRegister', function() {
+      lightbox.pswp.ui.registerElement({
+        name: 'custom-caption',
+        order: 9,
+        isButton: false,
+        appendTo: 'root',
+        html: '',
+        onInit: (el, pswp) => {
+          lightbox.pswp.on('change', () => {
+            const currSlideElement = lightbox.pswp.currSlide.data.element;
+            const title = currSlideElement.querySelector('div p').textContent;
+            const description = currSlideElement.dataset.description || '';
+            
+            el.innerHTML = `<div class="pswp__custom-caption">
+              <h3 class="pswp__title">${title}</h3>
+              ${description ? `<p class="pswp__description">${description}</p>` : ''}
+            </div>`;
+          });
+        }
+      });
+
+      // Add next/prev image navigation hints
+      lightbox.pswp.ui.registerElement({
+        name: 'navigation-hint',
+        order: 10,
+        isButton: false,
+        appendTo: 'root',
+        html: '',
+        onInit: (el) => {
+          el.className = 'pswp-navigation-hints';
+          
+          const leftHint = document.createElement('div');
+          leftHint.className = 'pswp-nav-hint pswp-nav-hint--prev';
+          leftHint.innerHTML = `
+            <div class="pswp-nav-hint__ico">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </div>
+            <div class="pswp-nav-hint__text">Previous</div>
+          `;
+          
+          const rightHint = document.createElement('div');
+          rightHint.className = 'pswp-nav-hint pswp-nav-hint--next';
+          rightHint.innerHTML = `
+            <div class="pswp-nav-hint__text">Next</div>
+            <div class="pswp-nav-hint__ico">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </div>
+          `;
+          
+          el.appendChild(leftHint);
+          el.appendChild(rightHint);
+
+          // Handle hint clicks
+          leftHint.addEventListener('click', () => {
+            lightbox.pswp.prev();
+          });
+          
+          rightHint.addEventListener('click', () => {
+            lightbox.pswp.next();
+          });
+        }
+      });
+    });
+
+    // Handle tag filtering
+    const allButton = document.getElementById('all-images');
+    const tagButtons = document.querySelectorAll('.image-tag');
+    const galleryItems = document.querySelectorAll('#gallery a');
+
+    function filterGallery(tag) {
+      galleryItems.forEach(item => {
+        const itemTags = item.dataset.tags ? item.dataset.tags.split(',') : [];
+        if (!tag || itemTags.includes(tag)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    allButton.addEventListener('click', () => {
+      // Remove active class from all buttons
+      tagButtons.forEach(btn => {
+        btn.classList.remove('bg-accent-500', 'text-white');
+        btn.classList.add('bg-base-100', 'text-base-700');
+      });
+      // Add active class to all button
+      allButton.classList.remove('bg-base-100', 'text-base-700');
+      allButton.classList.add('bg-accent-500', 'text-white');
+      // Show all images
+      filterGallery(null);
+    });
+
+    tagButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        tagButtons.forEach(btn => {
+          btn.classList.remove('bg-accent-500', 'text-white');
+          btn.classList.add('bg-base-100', 'text-base-700');
+        });
+        allButton.classList.remove('bg-accent-500', 'text-white');
+        allButton.classList.add('bg-base-100', 'text-base-700');
+        // Add active class to clicked button
+        btn.classList.remove('bg-base-100', 'text-base-700');
+        btn.classList.add('bg-accent-500', 'text-white');
+        // Filter gallery
+        filterGallery(btn.dataset.tag);
+      });
+    });
+
+    // Initialize keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.pswp && lightbox.pswp.isOpen) {
+        if (e.key === 'ArrowRight') {
+          lightbox.pswp.next();
+        } else if (e.key === 'ArrowLeft') {
+          lightbox.pswp.prev();
+        } else if (e.key === 'Escape') {
+          lightbox.pswp.close();
+        }
+      }
+    });
+
     lightbox.init();
   });
 </script>
+
+<style>
+  /* Custom PhotoSwipe styles to match TrendSpotter - variables are now in gallery.css */
+  
+  .pswp__custom-caption {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    max-width: calc(100% - 32px);
+    border-left: 3px solid var(--color-accent-500);
+  }
+
+  .pswp__title {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .pswp__description {
+    font-size: 14px;
+    margin: 8px 0 0;
+    opacity: 0.9;
+  }
+
+  /* Navigation hint styles */
+  .pswp-navigation-hints {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 1;
+    padding: 0 20px;
+  }
+
+  .pswp-nav-hint {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    pointer-events: all;
+  }
+
+  .pswp:hover .pswp-nav-hint {
+    opacity: 0.7;
+  }
+
+  .pswp-nav-hint:hover {
+    opacity: 1 !important;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .pswp-nav-hint__text {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .pswp-nav-hint__ico {
+    display: flex;
+    align-items: center;
+  }
+
+  .pswp-nav-hint--prev .pswp-nav-hint__ico {
+    margin-right: 8px;
+  }
+
+  .pswp-nav-hint--next .pswp-nav-hint__ico {
+    margin-left: 8px;
+  }
+</style>

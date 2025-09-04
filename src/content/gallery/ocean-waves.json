@@ -1,0 +1,9 @@
+{
+  "title": "Ocean Waves",
+  "imageUrl": "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1800&auto=format&fit=crop&q=70",
+  "width": 1800,
+  "height": 1200,
+  "alt": "Aerial view of ocean waves crashing on sandy beach",
+  "description": "Crystal clear turquoise waters meeting golden sands, captured from above.",
+  "tags": ["ocean", "beach", "aerial"]
+}

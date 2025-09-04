@@ -22,6 +22,7 @@ const gallery = defineCollection({
     height: z.coerce.number().int().positive().optional(),
     thumbUrl: z.string().optional(),
     alt: z.string().default(''),
+    description: z.string().optional(),
     tags: z.array(z.string()).default([]),
   }),
 });

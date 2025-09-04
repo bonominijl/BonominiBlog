@@ -1,21 +1,175 @@
 ---
-import Gallery from '../components/Gallery.astro';
 import Layout from '../layouts/Layout.astro';
-const title = 'Gallery';
+import Gallery from '../components/Gallery.astro';
+import { getCollection } from 'astro:content';
+
+const gallery = await getCollection('gallery');
+
+const withBase = (p) => {
+  if (!p) return p;
+  if (/^https?:\/\//i.test(p)) return p; // absolute URL
+  if (p.startsWith('/')) return p;       // already absolute site path
+  const base = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '');
+  return `${base}/${p.replace(/^\/+/, '')}`;
+};
+
+// Get a good featured image (nature category if possible)
+const natureImages = gallery.filter(img => img.data.tags?.includes('nature'));
+const featuredImage = natureImages.length > 0 
+  ? withBase(natureImages[0].data.imageUrl)
+  : gallery.length > 0 
+    ? withBase(gallery[0].data.imageUrl) 
+    : '';
+
+// Get image counts by category
+const imageCount = gallery.length;
+const categories = {};
+gallery.forEach(img => {
+  img.data.tags?.forEach(tag => {
+    categories[tag] = (categories[tag] || 0) + 1;
+  });
+});
+
+// Get top categories
+const topCategories = Object.entries(categories)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 3);
+
+const pageDescription = `A curated collection of ${imageCount} beautiful images across ${Object.keys(categories).length} categories.`;
 ---
 
-<Layout>
-  <main class="min-h-screen bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div class="text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          {title}
-        </h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          Browse our collection of images with PhotoSwipe lightbox for an immersive viewing experience
-        </p>
+<Layout 
+  title="Photo Gallery | TrendSpotter" 
+  description={pageDescription}
+>
+  <!-- Hero Section with Featured Image -->
+  <section class="relative bg-base-900 text-white dark:bg-base-950 dark:text-white">
+    {featuredImage && (
+      <div class="absolute inset-0 z-0 opacity-40">
+        <img src={featuredImage} alt="Featured gallery image" class="w-full h-full object-cover" />
       </div>
+    )}
+    <div class="absolute inset-0 bg-gradient-to-b from-base-900/80 to-base-900/40 dark:from-base-950/90 dark:to-base-950/60 z-10"></div>
+    
+    <div class="relative z-20 container mx-auto px-4 py-24 max-w-6xl">
+      <div class="max-w-3xl mx-auto text-center space-y-6">
+        <h1 class="text-5xl md:text-6xl font-bold tracking-tight">Photo Gallery</h1>
+        <p class="text-xl opacity-90 max-w-2xl mx-auto">
+          {pageDescription}
+        </p>
+        
+        <!-- Category pills -->
+        <div class="flex flex-wrap justify-center gap-3 pt-4">
+          {topCategories.map(([category, count]) => (
+            <a 
+              href={`#gallery-section`} 
+              data-category={category}
+              class="category-pill px-4 py-1.5 bg-accent-500/90 hover:bg-accent-500 text-white rounded-full text-sm font-medium transition-all">
+              {category} ({count})
+            </a>
+          ))}
+        </div>
+        
+        <a 
+          href="#gallery-section" 
+          class="inline-block mt-8 px-8 py-3 bg-white text-base-900 hover:bg-accent-50 dark:bg-base-800 dark:text-white dark:hover:bg-base-700 transition-all font-semibold">
+          Explore Gallery
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section with Filters -->
+  <section id="gallery-section" class="py-20 bg-base-50 dark:bg-base-900">
+    <div class="container mx-auto px-4">
       <Gallery />
     </div>
-  </main>
+  </section>
+  
+  <!-- Promo Section -->
+  <section class="py-16 bg-white dark:bg-base-800 border-t border-base-100 dark:border-base-700">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="flex-1 space-y-6">
+          <h2 class="text-3xl font-bold text-base-900 dark:text-white">Love what you see?</h2>
+          <p class="text-lg text-base-700 dark:text-base-300">
+            High-quality prints of these images are available for purchase. 
+            Contact us for pricing and availability.
+          </p>
+          <div class="pt-4">
+            <a href={`${import.meta.env.BASE_URL || '/'}/contact`} class="inline-block px-6 py-3 bg-accent-500 text-white hover:bg-accent-600 dark:bg-accent-600 dark:hover:bg-accent-700 transition-colors font-medium">
+              Request Prints
+            </a>
+          </div>
+        </div>
+        <div class="flex-1 grid grid-cols-2 gap-4">
+          <div class="aspect-[3/4] bg-base-100 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1567722681579-c671cabd2810?w=800&auto=format&fit=crop&q=70" 
+              alt="Framed photo print on wall" 
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="aspect-[3/4] bg-base-100 overflow-hidden mt-8">
+            <img 
+              src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&auto=format&fit=crop&q=70" 
+              alt="Gallery wall with framed photos" 
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Smooth scroll to gallery section
+    document.querySelectorAll('a[href="#gallery-section"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const gallerySection = document.getElementById('gallery-section');
+        if (gallerySection) {
+          gallerySection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+    
+    // Handle category pill clicks
+    document.querySelectorAll('.category-pill').forEach(pill => {
+      pill.addEventListener('click', (e) => {
+        e.preventDefault();
+        const category = pill.getAttribute('data-category');
+        const gallerySection = document.getElementById('gallery-section');
+        
+        // First scroll to gallery section
+        if (gallerySection) {
+          gallerySection.scrollIntoView({ behavior: 'smooth' });
+          
+          // Then find the corresponding tag button and simulate click
+          setTimeout(() => {
+            const tagButtons = document.querySelectorAll('.image-tag');
+            tagButtons.forEach(btn => {
+              if (btn.getAttribute('data-tag') === category) {
+                btn.click();
+              }
+            });
+          }, 800); // Wait for scroll to complete
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Add some animations */
+  .category-pill {
+    transform: translateY(0);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .category-pill:hover {
+    transform: translateY(-2px);
+  }
+</style>

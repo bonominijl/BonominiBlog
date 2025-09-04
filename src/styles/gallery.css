@@ -1,0 +1,78 @@
+/* Gallery page custom styles */
+
+/* Dark mode variables */
+:root {
+  --pswp-bg-light: rgba(0, 0, 0, 0.85);
+  --pswp-bg-dark: rgba(0, 0, 0, 0.95);
+  --pswp-icon-light: #fff;
+  --pswp-icon-dark: #f3f4f6;
+}
+
+.dark {
+  --pswp-bg: var(--pswp-bg-dark);
+  --pswp-icon-color: var(--pswp-icon-dark);
+}
+
+html:not(.dark) {
+  --pswp-bg: var(--pswp-bg-light);
+  --pswp-icon-color: var(--pswp-icon-light);
+}
+
+/* PhotoSwipe improvements */
+.pswp__button--arrow--next,
+.pswp__button--arrow--prev {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 50%;
+  width: 40px !important;
+  height: 40px !important;
+  transition: background-color 0.2s;
+}
+
+.pswp__button--arrow--next:hover,
+.pswp__button--arrow--prev:hover {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Ensure image thumbnails have consistent aspect ratio */
+.gallery-thumbnail {
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+/* Add a subtle zoom effect on hover */
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Make the lightbox counter more stylish */
+.pswp__counter {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 15px;
+}
+
+/* Improve lightbox close button */
+.pswp__button--close {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.pswp__button--close:hover {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Style for gallery tags */
+.gallery-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 0;
+  transition: all 0.2s ease;
+}
+
+.gallery-tag:hover {
+  transform: translateY(-1px);
+}

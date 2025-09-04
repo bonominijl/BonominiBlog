@@ -1,0 +1,9 @@
+{
+  "title": "Urban Nightscape",
+  "imageUrl": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1800&auto=format&fit=crop&q=70",
+  "width": 1800,
+  "height": 1200,
+  "alt": "City skyline at night with bright lights",
+  "description": "A vibrant cityscape captured after dark with dazzling lights illuminating the urban jungle.",
+  "tags": ["urban", "night", "cityscape"]
+}
