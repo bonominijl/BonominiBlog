@@ -1,4 +1,11 @@
 import { defineCollection, z } from 'astro:content';
+import { formatTags } from '../utils/cms-helpers';
+
+// Custom schema transformations
+const tagsTransformer = z.union([
+  z.array(z.string()),
+  z.string().transform(str => formatTags(str))
+]).default([]);
 
 const posts = defineCollection({
   type: 'content',
@@ -7,7 +14,7 @@ const posts = defineCollection({
     description: z.string().optional(),
     date: z.coerce.date(),
     author: z.string().optional(),
-    tags: z.array(z.string()).default([]),
+    tags: tagsTransformer,
     coverImage: z.string().optional(),
     draft: z.coerce.boolean().default(false),
   }),
@@ -23,7 +30,7 @@ const gallery = defineCollection({
     thumbUrl: z.string().optional(),
     alt: z.string().default(''),
     description: z.string().optional(),
-    tags: z.array(z.string()).default([]),
+    tags: tagsTransformer,
   }),
 });
 
@@ -37,7 +44,7 @@ const models = defineCollection({
     ar: z.coerce.boolean().default(true),
     autoRotate: z.coerce.boolean().default(true),
     cameraControls: z.coerce.boolean().default(true),
-    tags: z.array(z.string()).default([]),
+    tags: tagsTransformer,
   }),
 });
 

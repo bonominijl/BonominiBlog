@@ -1,0 +1,9 @@
+{
+  "title": "Test String Tags",
+  "imageUrl": "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1800&auto=format&fit=crop&q=70",
+  "width": 1800,
+  "height": 1200,
+  "alt": "Test image for string tags",
+  "description": "An example image to test the CMS tags helper function.",
+  "tags": "nature, test, cms"
+}
