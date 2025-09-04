@@ -1,4 +1,0 @@
----
-title: Bryce Canyon August 2025
-imageUrl: https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=2048&auto=format&fit=crop&q=70
----

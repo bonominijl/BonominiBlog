@@ -19,6 +19,7 @@ content:
     label: Posts
     type: collection
     path: src/content/posts
+    format: mdx
     fields:
       - name: title
         label: Title
@@ -54,6 +55,8 @@ content:
     label: Gallery
     type: collection
     path: src/content/gallery
+    format: json
+    filename: "{year}-{month}-{day}-{fields.title}.json"
     fields:
       - name: title
         label: Title
@@ -87,6 +90,8 @@ content:
     label: 3D Models
     type: collection
     path: src/content/models
+    format: json
+    filename: "{year}-{month}-{day}-{fields.title}.json"
     fields:
       - name: title
         label: Title
