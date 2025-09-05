@@ -3,8 +3,8 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="Fusion 360 Model Export Guide | Josh Bonomini" 
-  description="Learn how to export Fusion 360 models for use with the model-viewer component"
+  title="Fusion 360 Model Export Guide" 
+  description="Learn how to export Fusion 360 models"
 >
   <main class="min-h-screen bg-base-50 dark:bg-base-900">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -12,83 +12,50 @@ import Layout from '../layouts/Layout.astro';
         Using Fusion 360 Models with the Portfolio Site
       </h1>
       
-      <div class="prose prose-base-900 dark:prose-invert max-w-none">
-        <p class="lead text-lg text-base-700 dark:text-base-300">
-          This guide explains how to export Fusion 360 models for use with the <code>&lt;model-viewer&gt;</code> component used on the portfolio site.
-        </p>
+      <div class="prose dark:prose-invert max-w-none">
+        <p>This guide explains how to export Fusion 360 models for use with the model-viewer component.</p>
         
         <h2>Supported Formats</h2>
-        <p>
-          The <code>&lt;model-viewer&gt;</code> component used on this site supports 3D models in the following formats:
-        </p>
+        <p>The model-viewer component supports 3D models in the following formats:</p>
         <ul>
-          <li><strong>glTF/GLB</strong> (preferred format) - Binary format that includes geometry, textures, animations</li>
+          <li><strong>glTF/GLB</strong> (preferred format)</li>
           <li><strong>USDZ</strong> (for iOS AR experiences)</li>
         </ul>
         
         <h2>Exporting from Fusion 360</h2>
         
-        <h3>Method 1: Direct Export to glTF/GLB</h3>
+        <h3>Direct Export to glTF/GLB</h3>
         <ol>
-          <li>In Fusion 360, go to <strong>File &gt; Export</strong></li>
-          <li>Select <strong>glTF (.gltf, .glb)</strong> as the file format</li>
-          <li>Choose <strong>GLB</strong> option for a single binary file (recommended)</li>
-          <li>Configure export settings:
-            <ul>
-              <li>Enable <strong>Export textures</strong> if your model has materials</li>
-              <li>Set appropriate scale (usually meters)</li>
-              <li>Choose which components to include</li>
-            </ul>
-          </li>
-          <li>Click <strong>Export</strong> and save the file</li>
+          <li>In Fusion 360, go to File &gt; Export</li>
+          <li>Select glTF format</li>
+          <li>Choose GLB option</li>
+          <li>Configure export settings</li>
+          <li>Click Export and save the file</li>
         </ol>
         
-        <h3>Method 2: Using an Intermediate Format</h3>
-        <p>If direct glTF export isn't available in your version:</p>
+        <h3>Using an Intermediate Format</h3>
+        <p>If direct export isn't available:</p>
         <ol>
-          <li>Export your model as <strong>OBJ</strong> format from Fusion 360</li>
-          <li>Use an online converter like <a href="https://gltf.report/" target="_blank" rel="noopener noreferrer" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300">glTF Tools</a> or <a href="https://sketchfab.com/" target="_blank" rel="noopener noreferrer" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300">Sketchfab</a> to convert OBJ to glTF/GLB</li>
+          <li>Export as OBJ format</li>
+          <li>Convert OBJ to glTF/GLB using online tools</li>
         </ol>
         
         <h2>Adding Models to the Portfolio</h2>
         <ol>
-          <li>Place your exported <code>.glb</code> file in a web-accessible location (like GitHub Pages or other hosting)</li>
-          <li>Create a new JSON file in <code>src/content/models/</code> following this template:
-            <pre><code>{
-  "title": "Your Model Name",
-  "modelUrl": "https://path-to-your-model/model.glb",
-  "posterUrl": "https://path-to-your-thumbnail/thumbnail.webp", 
-  "description": "Description of your model",
-  "ar": true,
-  "autoRotate": true,
-  "cameraControls": true,
-  "tags": ["fusion360", "your-tags"]
-}</code></pre>
-          </li>
-        </ol>
-        
-        <h2>Creating Preview Images</h2>
-        <p>For the <code>posterUrl</code>, you can:</p>
-        <ol>
-          <li>Take a screenshot of your model in Fusion 360</li>
-          <li>Convert the image to WebP format for better performance</li>
-          <li>Host it alongside your GLB file</li>
+          <li>Host your GLB file</li>
+          <li>Create a JSON file in the models content directory</li>
+          <li>Follow the example template structure</li>
         </ol>
         
         <h2>Optimizing Models</h2>
-        <p>For better web performance:</p>
         <ul>
           <li>Simplify complex geometries</li>
-          <li>Aim for file sizes under 10MB</li>
+          <li>Keep file sizes under 10MB</li>
           <li>Use compressed textures</li>
-          <li>Remove unnecessary components</li>
         </ul>
         
         <div class="mt-12 border-t border-base-200 dark:border-base-700 pt-8">
-          <a href="/BonominiBlog/models/" class="inline-flex items-center text-accent-600 dark:text-accent-400 hover:underline">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
+          <a href="/BonominiBlog/models/" class="text-accent-600 dark:text-accent-400 hover:underline">
             Back to Models
           </a>
         </div>
