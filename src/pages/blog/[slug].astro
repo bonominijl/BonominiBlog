@@ -1,0 +1,127 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+// Get the slug from the URL
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// Get base URL for links
+const basePath = import.meta.env.BASE_URL || '/';
+
+const formattedDate = new Date(post.data.date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Layout title={`${post.data.title} | BonominiBlog`} description={post.data.description}>
+  <main class="py-12">
+    <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Post Header -->
+      <header class="mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold text-base-900 dark:text-white mb-4">
+          {post.data.title}
+        </h1>
+        <div class="flex items-center gap-4 text-base-500 dark:text-base-400 mb-6">
+          <time datetime={post.data.date}>{formattedDate}</time>
+          {post.data.author && (
+            <span>by {post.data.author}</span>
+          )}
+        </div>
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-8">
+            {post.data.tags.map((tag) => (
+              <span class="text-xs px-2 py-1 bg-base-100 dark:bg-base-600 text-base-600 dark:text-base-200">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+        
+        {post.data.coverImage && (
+          <div class="mb-8">
+            <img 
+              src={post.data.coverImage} 
+              alt={post.data.title} 
+              class="w-full max-h-[500px] object-cover shadow-lg"
+            />
+          </div>
+        )}
+      </header>
+
+      <!-- Post Content -->
+      <div class="prose prose-lg dark:prose-invert mx-auto">
+        <Content />
+      </div>
+      
+      <!-- Post Footer -->
+      <div class="mt-12 pt-8 border-t border-base-200 dark:border-base-700">
+        <a 
+          href={`${basePath}blog/`} 
+          class="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          Back to Blog
+        </a>
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<style>
+  /* Enhance the prose styling for blog posts */
+  :global(.prose) {
+    max-width: 100%;
+  }
+  
+  :global(.prose h2) {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  
+  :global(.prose h3) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  
+  :global(.prose a) {
+    color: #2563eb; /* blue-600 */
+    text-decoration: none;
+    border-bottom: 1px solid #93c5fd; /* blue-300 */
+    transition: border-color 0.2s;
+  }
+  
+  :global(.prose a:hover) {
+    border-bottom-color: #2563eb; /* blue-600 */
+  }
+  
+  :global(.dark .prose a) {
+    color: #60a5fa; /* blue-400 */
+    border-bottom-color: #1d4ed8; /* blue-700 */
+  }
+  
+  :global(.dark .prose a:hover) {
+    border-bottom-color: #60a5fa; /* blue-400 */
+  }
+  
+  :global(.prose img) {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* md shadow */
+  }
+</style>

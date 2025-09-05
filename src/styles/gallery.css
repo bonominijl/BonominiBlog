@@ -21,22 +21,61 @@ html:not(.dark) {
 /* PhotoSwipe improvements */
 .pswp__button--arrow--next,
 .pswp__button--arrow--prev {
-  background-color: rgba(0, 0, 0, 0.3) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
   border-radius: 50%;
-  width: 40px !important;
-  height: 40px !important;
-  transition: background-color 0.2s;
+  width: 50px !important;
+  height: 50px !important;
+  transition: background-color 0.2s, transform 0.2s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  z-index: 1500 !important;
 }
 
 .pswp__button--arrow--next:hover,
 .pswp__button--arrow--prev:hover {
-  background-color: rgba(0, 0, 0, 0.5) !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  transform: scale(1.1);
+}
+
+.pswp__ui {
+  z-index: 1500;
 }
 
 /* Ensure image thumbnails have consistent aspect ratio */
 .gallery-thumbnail {
   aspect-ratio: 4/3;
   object-fit: cover;
+}
+
+/* Enhance PhotoSwipe animations */
+.pswp__container {
+  transition: transform 0.33s cubic-bezier(0.4, 0, 0.22, 1);
+}
+
+.pswp__item {
+  opacity: 0;
+  transition: opacity 0.33s;
+}
+
+.pswp__item--current {
+  opacity: 1;
+}
+
+/* Larger clickable areas for navigation */
+.pswp__button--arrow--prev,
+.pswp__button--arrow--next {
+  transform-origin: center;
+  transition: transform 0.2s ease, background-color 0.2s ease !important;
+}
+
+.pswp__button--arrow--prev:hover {
+  transform: translateX(-5px) scale(1.1);
+}
+
+.pswp__button--arrow--next:hover {
+  transform: translateX(5px) scale(1.1);
 }
 
 /* Add a subtle zoom effect on hover */

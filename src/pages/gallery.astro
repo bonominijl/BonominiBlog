@@ -35,11 +35,11 @@ const topCategories = Object.entries(categories)
   .sort((a, b) => b[1] - a[1])
   .slice(0, 3);
 
-const pageDescription = `A curated collection of ${imageCount} beautiful images across ${Object.keys(categories).length} categories.`;
+const pageDescription = `My personal collection of ${imageCount} photographs across ${Object.keys(categories).length} categories.`;
 ---
 
 <Layout 
-  title="Photo Gallery | TrendSpotter" 
+  title="My Photography Collection | Josh Bonomini" 
   description={pageDescription}
 >
   <!-- Hero Section with Featured Image -->
@@ -53,9 +53,9 @@ const pageDescription = `A curated collection of ${imageCount} beautiful images 
     
     <div class="relative z-20 container mx-auto px-4 py-24 max-w-6xl">
       <div class="max-w-3xl mx-auto text-center space-y-6">
-        <h1 class="text-5xl md:text-6xl font-bold tracking-tight">Photo Gallery</h1>
+        <h1 class="text-5xl md:text-6xl font-bold tracking-tight">My Photography</h1>
         <p class="text-xl opacity-90 max-w-2xl mx-auto">
-          {pageDescription}
+          A collection of my favorite captures across nature, landscapes, macro, and street photography
         </p>
         
         <!-- Category pills -->
@@ -86,41 +86,7 @@ const pageDescription = `A curated collection of ${imageCount} beautiful images 
     </div>
   </section>
   
-  <!-- Promo Section -->
-  <section class="py-16 bg-white dark:bg-base-800 border-t border-base-100 dark:border-base-700">
-    <div class="container mx-auto px-4 max-w-6xl">
-      <div class="flex flex-col md:flex-row items-center gap-12">
-        <div class="flex-1 space-y-6">
-          <h2 class="text-3xl font-bold text-base-900 dark:text-white">Love what you see?</h2>
-          <p class="text-lg text-base-700 dark:text-base-300">
-            High-quality prints of these images are available for purchase. 
-            Contact us for pricing and availability.
-          </p>
-          <div class="pt-4">
-            <a href={`${import.meta.env.BASE_URL || '/'}/contact`} class="inline-block px-6 py-3 bg-accent-500 text-white hover:bg-accent-600 dark:bg-accent-600 dark:hover:bg-accent-700 transition-colors font-medium">
-              Request Prints
-            </a>
-          </div>
-        </div>
-        <div class="flex-1 grid grid-cols-2 gap-4">
-          <div class="aspect-[3/4] bg-base-100 overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1567722681579-c671cabd2810?w=800&auto=format&fit=crop&q=70" 
-              alt="Framed photo print on wall" 
-              class="w-full h-full object-cover"
-            />
-          </div>
-          <div class="aspect-[3/4] bg-base-100 overflow-hidden mt-8">
-            <img 
-              src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&auto=format&fit=crop&q=70" 
-              alt="Gallery wall with framed photos" 
-              class="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+
 </Layout>
 
 <script>

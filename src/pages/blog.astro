@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts and sort them by date (newest first)
+const posts = await getCollection('posts');
+const sortedPosts = posts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+// Get base URL for links
+const basePath = import.meta.env.BASE_URL || '/';
+
+const pageTitle = "Blog | BonominiBlog";
+const pageDescription = "Thoughts, tutorials, and behind-the-scenes stories from our creative journey";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <main class="py-12 lg:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Page Header -->
+      <div class="text-center mb-12 md:mb-20">
+        <h1 class="text-5xl md:text-6xl font-bold text-base-900 dark:text-white mb-4">Our Blog</h1>
+        <p class="text-xl text-base-600 dark:text-base-300 max-w-2xl mx-auto">
+          {pageDescription}
+        </p>
+      </div>
+      
+      <!-- Blog Posts Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedPosts.length ? (
+          sortedPosts.map((post) => (
+            <article class="bg-white dark:bg-base-700 shadow-lg hover:shadow-hover transition-all duration-300">
+              {post.data.coverImage ? (
+                <img src={post.data.coverImage} alt={post.data.title} class="w-full aspect-[16/9] object-cover" loading="lazy" />
+              ) : (
+                <div class="aspect-[16/9] bg-gradient-to-br from-base-200 to-base-300 dark:from-base-600 dark:to-base-700 flex items-center justify-center">
+                  <span class="text-4xl">📝</span>
+                </div>
+              )}
+              <div class="p-6">
+                <p class="text-sm text-base-500 dark:text-base-400">{new Date(post.data.date).toLocaleDateString()}</p>
+                <h2 class="text-xl font-semibold text-base-900 dark:text-white mb-3">{post.data.title}</h2>
+                {post.data.description && (
+                  <p class="text-base-600 dark:text-base-300 mb-4 line-clamp-3">{post.data.description}</p>
+                )}
+                <div class="flex items-center justify-between">
+                  <div class="flex flex-wrap gap-2">
+                    {post.data.tags?.map((tag) => (
+                      <span class="text-xs px-2 py-1 bg-base-100 dark:bg-base-600 text-base-600 dark:text-base-200">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <a 
+                    href={`${basePath}blog/${post.slug}/`} 
+                    class="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                  >
+                    Read more
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))
+        ) : (
+          <div class="col-span-3 text-center py-16">
+            <h3 class="text-xl text-base-500 dark:text-base-400">No blog posts available yet.</h3>
+            <p class="mt-2 text-base-400 dark:text-base-500">Check back soon for new content!</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </main>
+</Layout>
