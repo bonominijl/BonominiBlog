@@ -1,6 +1,6 @@
 {
-  "title": "Classic Teapot",
-  "modelUrl": "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+  "title": "Switch Lite PoE RaspBerry Pi Adapter",
+  "modelUrl": "src/content/models/switch lite poe 8 1u adapter v21.glb",
   "posterUrl": "https://modelviewer.dev/shared-assets/models/Astronaut.webp",
   "description": "Interactive 3D model example using model-viewer.",
   "ar": true,
