@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#111827"/>
+  
+  <!-- Abstract pattern inspired by photography and 3D modeling -->
+  <g opacity="0.6">
+    <!-- Grid lines -->
+    <g stroke="#4B5563" stroke-width="1" opacity="0.3">
+      <!-- Horizontal grid lines -->
+      <line x1="0" y1="100" x2="1920" y2="100"/>
+      <line x1="0" y1="300" x2="1920" y2="300"/>
+      <line x1="0" y1="500" x2="1920" y2="500"/>
+      <line x1="0" y1="700" x2="1920" y2="700"/>
+      <line x1="0" y1="900" x2="1920" y2="900"/>
+      
+      <!-- Vertical grid lines -->
+      <line x1="200" y1="0" x2="200" y2="1080"/>
+      <line x1="600" y1="0" x2="600" y2="1080"/>
+      <line x1="1000" y1="0" x2="1000" y2="1080"/>
+      <line x1="1400" y1="0" x2="1400" y2="1080"/>
+      <line x1="1800" y1="0" x2="1800" y2="1080"/>
+    </g>
+    
+    <!-- Geometric elements -->
+    <g>
+      <!-- Circles representing camera lens/aperture -->
+      <circle cx="300" cy="300" r="150" fill="none" stroke="#3B82F6" stroke-width="2"/>
+      <circle cx="300" cy="300" r="100" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+      <circle cx="300" cy="300" r="50" fill="none" stroke="#3B82F6" stroke-width="1"/>
+      
+      <!-- 3D model wireframe suggestion -->
+      <polygon points="1500,400 1700,300 1700,600 1500,700 1300,600 1300,300" fill="none" stroke="#10B981" stroke-width="2"/>
+      <line x1="1500" y1="400" x2="1500" y2="700" stroke="#10B981" stroke-width="2"/>
+      <line x1="1700" y1="300" x2="1500" y2="400" stroke="#10B981" stroke-width="2"/>
+      <line x1="1300" y1="300" x2="1500" y2="400" stroke="#10B981" stroke-width="2"/>
+      
+      <!-- Photo frame -->
+      <rect x="600" y="500" width="300" height="200" fill="none" stroke="#F59E0B" stroke-width="2"/>
+      <line x1="600" y1="500" x2="900" y2="700" stroke="#F59E0B" stroke-width="1"/>
+      <line x1="900" y1="500" x2="600" y2="700" stroke="#F59E0B" stroke-width="1"/>
+    </g>
+    
+    <!-- Abstract pattern elements -->
+    <g opacity="0.4">
+      <!-- Random dots pattern -->
+      <circle cx="200" cy="200" r="5" fill="#F97316"/>
+      <circle cx="1600" cy="800" r="5" fill="#F97316"/>
+      <circle cx="400" cy="900" r="5" fill="#F97316"/>
+      <circle cx="1200" cy="300" r="5" fill="#F97316"/>
+      <circle cx="1000" cy="750" r="5" fill="#F97316"/>
+      <circle cx="1800" cy="450" r="5" fill="#F97316"/>
+      <circle cx="900" cy="120" r="5" fill="#F97316"/>
+      
+      <!-- Abstract lines -->
+      <path d="M0,1080 C500,800 1000,900 1920,600" stroke="#8B5CF6" stroke-width="1.5" fill="none"/>
+      <path d="M0,600 C300,400 1200,700 1920,300" stroke="#EC4899" stroke-width="1.5" fill="none"/>
+    </g>
+  </g>
+</svg>

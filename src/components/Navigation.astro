@@ -1,6 +1,9 @@
 ---
 // Navigation component for the site with TrendSpotter theme styling
 import { Image } from 'astro:assets';
+import Logo from '../assets/icons/logo-alt1.svg';
+import LogoAlt2 from '../assets/icons/logo-alt2.svg';
+import LogoAlt3 from '../assets/icons/logo-alt3.svg';
 
 const pathname = new URL(Astro.request.url).pathname;
 // Handle trailing slash and BASE_URL prefixes for proper route matching
@@ -20,6 +23,9 @@ const navItems = [
   { href: '/models/', label: 'Models' },
   { href: '/contact/', label: 'Contact' },
 ];
+
+// Define the logo to use (change to LogoAlt2 or LogoAlt3 to try different designs)
+const selectedLogo = Logo;
 ---
 
 <nav class="bg-white dark:bg-base-900 border-b border-base-200 dark:border-base-800 sticky top-0 z-50 transition-colors duration-200">
@@ -29,11 +35,11 @@ const navItems = [
       <div class="flex-shrink-0">
         <a 
           href={`${basePath}`} 
-          class="group flex items-center gap-2 text-xl font-bold text-base-900 dark:text-white hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
+          class="group flex items-center gap-3 text-xl font-bold text-base-900 dark:text-white hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
         >
-          <span class="size-8 bg-accent-500 text-white flex items-center justify-center font-bold rounded-sm transform group-hover:scale-105 transition-transform">
-            BB
-          </span>
+          <div class="w-8 h-8 transform group-hover:scale-105 transition-transform">
+            <img src={selectedLogo.src} alt="JB Logo" width="32" height="32" />
+          </div>
           <span>BonominiBlog</span>
         </a>
       </div>
